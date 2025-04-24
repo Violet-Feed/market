@@ -1,4 +1,4 @@
-package violet.shop.common.config;
+package violet.market.common.config;
 
 import org.apache.http.HttpHost;
 import org.apache.http.auth.AuthScope;
@@ -18,10 +18,8 @@ public class EsConfig {
     public RestHighLevelClient restHighLevelClient() {
         final CredentialsProvider credentialsProvider = new BasicCredentialsProvider();
         credentialsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials("", ""));
-        RestClientBuilder builder = RestClient.builder(new HttpHost("127.0.0.1", 9200)).
-                setHttpClientConfigCallback(httpClientBuilder -> httpClientBuilder
-                        .setDefaultCredentialsProvider(credentialsProvider));
+        RestClientBuilder builder = RestClient.builder(new HttpHost("127.0.0.1", 9200))
+                .setHttpClientConfigCallback(httpClientBuilder -> httpClientBuilder.setDefaultCredentialsProvider(credentialsProvider));
         return new RestHighLevelClient(builder);
     }
-
 }

@@ -1,13 +1,13 @@
-package violet.shop.common;
+package violet.market.common;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ShopApplication {
+public class MarketApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ShopApplication.class, args);
+        SpringApplication.run(MarketApplication.class, args);
     }
 
 }

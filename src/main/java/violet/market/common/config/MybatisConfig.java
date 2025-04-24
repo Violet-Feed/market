@@ -1,4 +1,4 @@
-package violet.shop.common.config;
+package violet.market.common.config;
 
 import org.mybatis.spring.boot.autoconfigure.ConfigurationCustomizer;
 import org.springframework.context.annotation.Bean;

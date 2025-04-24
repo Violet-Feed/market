@@ -1,13 +1,16 @@
-server:
-  port: 3002
 grpc:
   server:
-    port: 3012
+    port: 3005
   client:
-    demo:
-      address: 'static://127.0.0.1:3011'
+    action:
+      address: 'static://127.0.0.1:3003'
+      negotiation-type: plaintext
+    im:
+      address: 'static://127.0.0.1:3004'
       negotiation-type: plaintext
 spring:
+  main:
+    web-application-type: none
   datasource:
     url: jdbc:mysql://localhost:3306/violet?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=UTF-8
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -15,3 +18,8 @@ spring:
     password:
   elasticsearch:
     uris: localhost:9200
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: violet

@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>violet.shop</groupId>
+    <groupId>violet.market</groupId>
     <artifactId>common</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>shop</name>
-    <description>shop</description>
+    <name>market</name>
+    <description>market</description>
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -33,23 +33,6 @@
             <artifactId>lombok</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-api</artifactId>
-            <version>0.11.5</version>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-impl</artifactId>
-            <version>0.11.5</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.jsonwebtoken</groupId>
-            <artifactId>jjwt-jackson</artifactId>
-            <version>0.11.5</version>
-            <scope>runtime</scope>
-        </dependency>
-        <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
             <version>16.0.1</version>
@@ -73,6 +56,10 @@
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>2.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -130,7 +117,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
                 <configuration>
-                    <mainClass>violet.shop.common.ShopApplication</mainClass>
+                    <mainClass>violet.market.common.MarketApplication</mainClass>
                     <skip>true</skip>
                 </configuration>
                 <executions>
@@ -153,7 +140,7 @@
                     <!--                    <protocArtifact>com.google.protobuf:protoc:3.3.0:exe:osx-x86_64</protocArtifact>-->
                     <!--                    <pluginId>grpc-java</pluginId>-->
                     <!--                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:1.6.1:exe:osx-x86_64</pluginArtifact>-->
-                    <protoSourceRoot>${project.basedir}/src/main/java/violet/shop/common</protoSourceRoot>
+                    <protoSourceRoot>${project.basedir}/src/main/java/violet/market/common</protoSourceRoot>
                     <outputDirectory>${project.basedir}/src/main/java</outputDirectory>
                     <clearOutputDirectory>false</clearOutputDirectory>
                 </configuration>

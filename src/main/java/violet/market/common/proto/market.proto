@@ -1,0 +1,106 @@
+syntax = "proto3";
+package market;
+option java_multiple_files = true;
+option java_package = "violet.market.common.proto_gen.market";
+option go_package = "/proto_gen/market";
+
+import "proto/common.proto";
+
+message ItemInfo {
+  int64 item_id = 1;
+  string name = 2;
+  string description = 3;
+  repeated string images = 4;
+  string location = 5;
+  int64 create_time = 6;
+  int64 shop_id = 7;
+}
+message ItemPropertyInfo {
+  int64 property_id = 1;
+  string name = 2;
+  repeated ItemPropertyValue values = 3;
+}
+message ItemPropertyValue {
+  int64 value_id = 1;
+  string name = 2;
+}
+message SkuInfo{
+  int64 sku_id = 1;
+  string property_path = 2;
+  string image = 3;
+  int64 price = 4;
+  int64 stock = 5;
+  int64 item_id = 6;
+}
+message ShopInfo{
+  int64 shop_id = 1;
+  string name = 2;
+  string avatar = 3;
+  int64 user_id = 4;
+}
+message ItemCard{
+  int64 item_id = 1;
+  string name = 2;
+  string image = 4;
+  int64 price = 5;
+  int64 sell_count = 6;
+  int64 shop_id = 7;
+  string shop_name = 8;
+}
+
+message CreateItemRequest {
+  string title = 1;
+  string description = 2;
+  repeated string images = 3;
+  string location = 4;
+  int64 shop_id = 5;
+  repeated ItemPropertyInfo properties = 6;
+  repeated SkuInfo skus = 7;
+}
+message CreateItemResponse {
+  common.BaseResp baseResp = 255;
+}
+
+message GetItemInfoRequest {
+  int64 item_id = 1;
+}
+message GetItemInfoResponse {
+  ItemInfo item_info = 1;
+  repeated ItemPropertyInfo properties = 2;
+  repeated SkuInfo skus = 3;
+  ShopInfo shop = 4;
+  common.BaseResp baseResp = 255;
+}
+
+message GetItemListByUserRequest {
+  int64 user_id = 1;
+}
+message GetItemListByUserResponse {
+  repeated ItemCard items = 1;
+  common.BaseResp baseResp = 255;
+}
+
+message GetItemListBySearchRequest {
+  string keyword = 1;
+  int64 page = 2;
+}
+message GetItemListBySearchResponse {
+  repeated ItemCard items = 1;
+  common.BaseResp baseResp = 255;
+}
+
+message CreateShopRequest {
+  string name = 1;
+  int64 user_id = 2;
+}
+message CreateShopResponse {
+  common.BaseResp baseResp = 255;
+}
+
+service MarketService {
+  rpc CreateItem(CreateItemRequest) returns (CreateItemResponse);
+  rpc GetItemInfo(GetItemInfoRequest) returns (GetItemInfoResponse);
+  rpc GetItemListByUser(GetItemListByUserRequest) returns (GetItemListByUserResponse);
+  rpc GetItemListBySearch(GetItemListBySearchRequest) returns (GetItemListBySearchResponse);
+  rpc CreateShop(CreateShopRequest) returns (CreateShopResponse);
+}
