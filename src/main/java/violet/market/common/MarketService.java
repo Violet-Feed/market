@@ -18,10 +18,9 @@ public class MarketService extends MarketServiceGrpc.MarketServiceImplBase {
     public void createItem(CreateItemRequest request, StreamObserver<CreateItemResponse> responseObserver) {
         try {
             responseObserver.onNext(itemService.createItem(request));
+            responseObserver.onCompleted();
         } catch (Exception e) {
             responseObserver.onError(e);
-        } finally {
-            responseObserver.onCompleted();
         }
     }
 
@@ -29,10 +28,9 @@ public class MarketService extends MarketServiceGrpc.MarketServiceImplBase {
     public void getItemInfo(GetItemInfoRequest request, StreamObserver<GetItemInfoResponse> responseObserver) {
         try {
             responseObserver.onNext(itemService.getItemInfo(request));
+            responseObserver.onCompleted();
         } catch (Exception e) {
             responseObserver.onError(e);
-        } finally {
-            responseObserver.onCompleted();
         }
     }
 
@@ -40,10 +38,9 @@ public class MarketService extends MarketServiceGrpc.MarketServiceImplBase {
     public void getItemListBySearch(GetItemListBySearchRequest request, StreamObserver<GetItemListBySearchResponse> responseObserver) {
         try {
             responseObserver.onNext(itemService.getItemListBySearch(request));
+            responseObserver.onCompleted();
         } catch (Exception e) {
             responseObserver.onError(e);
-        } finally {
-            responseObserver.onCompleted();
         }
     }
 
@@ -51,10 +48,9 @@ public class MarketService extends MarketServiceGrpc.MarketServiceImplBase {
     public void getItemListByUser(GetItemListByUserRequest request, StreamObserver<GetItemListByUserResponse> responseObserver) {
         try {
             responseObserver.onNext(itemService.getItemListByUser(request));
+            responseObserver.onCompleted();
         } catch (Exception e) {
             responseObserver.onError(e);
-        } finally {
-            responseObserver.onCompleted();
         }
     }
 
@@ -62,10 +58,9 @@ public class MarketService extends MarketServiceGrpc.MarketServiceImplBase {
     public void createShop(CreateShopRequest request, StreamObserver<CreateShopResponse> responseObserver) {
         try {
             responseObserver.onNext(shopService.createShop(request));
+            responseObserver.onCompleted();
         } catch (Exception e) {
             responseObserver.onError(e);
-        } finally {
-            responseObserver.onCompleted();
         }
     }
 }

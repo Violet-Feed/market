@@ -2,6 +2,7 @@ package violet.market.common.mapper;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import violet.market.common.pojo.Sku;
 
 import java.util.List;
@@ -18,4 +19,7 @@ public interface SkuMapper {
             "</foreach>" +
             "</script>")
     int batchCreateSku(List<Sku> skus);
+
+    @Select("select * from sku where item_id = #{itemId}")
+    List<Sku> selectSkuByItemId(Long itemId);
 }

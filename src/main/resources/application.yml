@@ -8,6 +8,9 @@ grpc:
     im:
       address: 'static://127.0.0.1:3004'
       negotiation-type: plaintext
+    recommend:
+      address: 'static://127.0.0.1:3006'
+      negotiation-type: plaintext
 spring:
   main:
     web-application-type: none
@@ -23,3 +26,7 @@ spring:
       host: localhost
       port: 27017
       database: violet
+rocketmq:
+  name-server: 127.0.0.1:9876
+  producer:
+    group: producer

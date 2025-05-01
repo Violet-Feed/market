@@ -11,14 +11,14 @@ import java.util.List;
 @NoArgsConstructor
 public class ItemProperty {
     private Long id;
-    private Long item_id;
+    private Long itemId;
     private List<Property> properties;
 
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Property {
-        private Long property_id;
+        private Long propertyId;
         private String name;
         private List<Value> values;
     }
@@ -27,7 +27,7 @@ public class ItemProperty {
     @AllArgsConstructor
     @NoArgsConstructor
     public static class Value {
-        private Long value_id;
+        private Long valueId;
         private String name;
     }
 }
