@@ -63,4 +63,14 @@ public class MarketService extends MarketServiceGrpc.MarketServiceImplBase {
             responseObserver.onError(e);
         }
     }
+
+    @Override
+    public void appendItemHistory(AppendItemHistoryRequest request, StreamObserver<AppendItemHistoryResponse> responseObserver) {
+        try {
+            responseObserver.onNext(itemService.appendItemHistory(request));
+            responseObserver.onCompleted();
+        } catch (Exception e) {
+            responseObserver.onError(e);
+        }
+    }
 }

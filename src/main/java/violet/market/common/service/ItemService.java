@@ -13,4 +13,5 @@ public interface ItemService {
 
     GetItemListByUserResponse getItemListByUser(GetItemListByUserRequest req) throws Exception;
 //    JSONObject getItemListByShop(JSONObject req) throws Exception;
+    AppendItemHistoryResponse appendItemHistory(AppendItemHistoryRequest req) throws Exception;
 }

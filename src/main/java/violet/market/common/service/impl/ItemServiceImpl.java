@@ -10,6 +10,7 @@ import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import violet.market.common.mapper.ItemMapper;
 import violet.market.common.mapper.ShopMapper;
@@ -42,6 +43,8 @@ public class ItemServiceImpl implements ItemService {
     @Autowired
     private ShopMapper shopMapper;
     @Autowired
+    private RedisTemplate<String, String> redisTemplate;
+    @Autowired
     private MongoTemplate mongoTemplate;
     @Autowired
     private RocketMQTemplate rocketMQTemplate;
@@ -54,25 +57,25 @@ public class ItemServiceImpl implements ItemService {
         //TODO:事务
         CreateItemResponse.Builder resp = CreateItemResponse.newBuilder();
         Long itemId = itemIdGenerator.nextId();
-        String images = JSONObject.toJSONString(req.getImagesList());
-        Item item = new Item(null, itemId, req.getTitle(), req.getDescription(), images, req.getLocation(), new Date(), req.getShopId());
-        itemMapper.createItem(item);
-        List<ItemProperty.Property> properties = new ArrayList<>();
-        for (ItemPropertyInfo property : req.getPropertiesList()) {
-            List<ItemProperty.Value> values = new ArrayList<>();
-            for (ItemPropertyValue value : property.getValuesList()) {
-                values.add(new ItemProperty.Value(value.getValueId(), value.getName()));
-            }
-            properties.add(new ItemProperty.Property(property.getPropertyId(), property.getName(), values));
-        }
-        ItemProperty itemProperty = new ItemProperty(null, itemId, properties);
-        mongoTemplate.insert(itemProperty);
-        List<Sku> skus = new ArrayList<>();
-        for (SkuInfo skuInfo : req.getSkusList()) {
-            Long skuId = skuIdGenerator.nextId();
-            skus.add(new Sku(null, skuId, skuInfo.getPropertyPath(), skuInfo.getImage(), skuInfo.getSkuId(), skuInfo.getStock(), itemId));
-        }
-        skuMapper.batchCreateSku(skus);
+//        String images = JSONObject.toJSONString(req.getImagesList());
+//        Item item = new Item(null, itemId, req.getTitle(), req.getDescription(), images, req.getLocation(), new Date(), req.getShopId());
+//        itemMapper.createItem(item);
+//        List<ItemProperty.Property> properties = new ArrayList<>();
+//        for (ItemPropertyInfo property : req.getPropertiesList()) {
+//            List<ItemProperty.Value> values = new ArrayList<>();
+//            for (ItemPropertyValue value : property.getValuesList()) {
+//                values.add(new ItemProperty.Value(value.getValueId(), value.getName()));
+//            }
+//            properties.add(new ItemProperty.Property(property.getPropertyId(), property.getName(), values));
+//        }
+//        ItemProperty itemProperty = new ItemProperty(null, itemId, properties);
+//        mongoTemplate.insert(itemProperty);
+//        List<Sku> skus = new ArrayList<>();
+//        for (SkuInfo skuInfo : req.getSkusList()) {
+//            Long skuId = skuIdGenerator.nextId();
+//            skus.add(new Sku(null, skuId, skuInfo.getPropertyPath(), skuInfo.getImage(), skuInfo.getSkuId(), skuInfo.getStock(), itemId));
+//        }
+//        skuMapper.batchCreateSku(skus);
         JSONObject extra = new JSONObject();
         extra.put("item_id", itemId);
         extra.put("title", req.getTitle());
@@ -190,4 +193,14 @@ public class ItemServiceImpl implements ItemService {
         BaseResp baseResp = BaseResp.newBuilder().setStatusCode(StatusCode.Success).build();
         return resp.addAllItems(itemCardList).setBaseResp(baseResp).build();
     }
+
+    @Override
+    public AppendItemHistoryResponse appendItemHistory(AppendItemHistoryRequest req) throws Exception {
+        AppendItemHistoryResponse.Builder resp = AppendItemHistoryResponse.newBuilder();
+        redisTemplate.opsForZSet().add("item_history:" + req.getUserId(), String.valueOf(req.getItemId()), req.getOptTime());
+        BaseResp baseResp = BaseResp.newBuilder().setStatusCode(StatusCode.Success).build();
+        return resp.setBaseResp(baseResp).build();
+    }
+
+
 }

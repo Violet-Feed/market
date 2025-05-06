@@ -97,10 +97,20 @@ message CreateShopResponse {
   common.BaseResp baseResp = 255;
 }
 
+message AppendItemHistoryRequest {
+  int64 user_id = 1;
+  int64 item_id = 2;
+  int64 opt_time = 3;
+}
+message AppendItemHistoryResponse {
+  common.BaseResp baseResp = 255;
+}
+
 service MarketService {
   rpc CreateItem(CreateItemRequest) returns (CreateItemResponse);
   rpc GetItemInfo(GetItemInfoRequest) returns (GetItemInfoResponse);
   rpc GetItemListByUser(GetItemListByUserRequest) returns (GetItemListByUserResponse);
   rpc GetItemListBySearch(GetItemListBySearchRequest) returns (GetItemListBySearchResponse);
   rpc CreateShop(CreateShopRequest) returns (CreateShopResponse);
+  rpc AppendItemHistory(AppendItemHistoryRequest) returns (AppendItemHistoryResponse);
 }
